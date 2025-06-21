@@ -77,7 +77,7 @@ final class TaskListTest {
         let mockData: [TaskModel] = [.mock]
         let error = NSError(domain: "", code: 0, userInfo: nil)
         
-        let client = TaskClient()
+        var client = TaskClientMock()
         client.testProxy?.saveTasks = { _ in throw error }
         
         let store = TestStore(
@@ -130,7 +130,7 @@ final class TaskListTest {
             $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
@@ -141,7 +141,7 @@ final class TaskListTest {
         // Проверка обработки ошибки при загрузки данных с Core Data
         
         let error = NSError(domain: "", code: 0, userInfo: nil)
-        let client = TaskClient()
+        var client = TaskClientMock()
         client.testProxy?.loadTasksCoreData = { throw error }
         
         let store = TestStore(
@@ -189,12 +189,13 @@ final class TaskListTest {
             $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
         
         await store.send(.binding(.set(\.filterTask.text, "")))
+        
         await store.receive(\.data.searchTask.start)
         await store.receive(\.data.searchTask.complete) {
             $0.tasks = mockData
@@ -252,10 +253,10 @@ final class TaskListTest {
         await store.send(.ui(.onAppear(false)))
         
         await store.receive(\.data.loadTasksCoreData.start) {
-            $0.isLoading = false
+            $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
@@ -288,10 +289,10 @@ final class TaskListTest {
         await store.send(.ui(.onAppear(false)))
         
         await store.receive(\.data.loadTasksCoreData.start) {
-            $0.isLoading = false
+            $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
@@ -323,10 +324,10 @@ final class TaskListTest {
         await store.send(.ui(.onAppear(false)))
         
         await store.receive(\.data.loadTasksCoreData.start) {
-            $0.isLoading = false
+            $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
@@ -360,7 +361,7 @@ final class TaskListTest {
             $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }
