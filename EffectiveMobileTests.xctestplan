@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "C2F4C8B1-11B4-4E85-95F9-9FABBDEE9CA3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:EffectiveMobile.xcodeproj",
+        "identifier" : "7A011A672E0753B9000A21DC",
+        "name" : "EffectiveMobileTests"
+      }
+    }
+  ],
+  "version" : 1
+}

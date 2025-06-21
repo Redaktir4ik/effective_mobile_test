@@ -9,6 +9,34 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>EffectiveMobileTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7A011A672E0753B9000A21DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A73AC0E2E0415EC00B75399</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A73AC202E0415EE00B75399</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A73AC2A2E0415EE00B75399</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
