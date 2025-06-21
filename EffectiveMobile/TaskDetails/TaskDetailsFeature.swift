@@ -87,11 +87,6 @@ public struct TaskDetailsFeature: Sendable {
                     return .none
                 case .saveTapped:
                     if state.model.title.isEmpty, state.model.todo.isEmpty {
-                        state.toast = ToastState(
-                            title: "Ошибка создания/изменения задачи",
-                            subtitle: "Не заполнены обязательные поля заголовок и описание",
-                            type: .error
-                        )
                         return .none
                     }
                     if state.type == .edit {
@@ -146,7 +141,7 @@ public struct TaskDetailsFeature: Sendable {
                     case .start:
                         return .none
                     case let .complete(usersID):
-                        if state.type == .create {
+                        if state.type == .create, usersID.count > 0 {
                             state.model.userId = usersID[0]
                         }
                         state.userIds = usersID
