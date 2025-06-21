@@ -16,10 +16,13 @@ final class TaskListTest {
         // 4. Проверка сохранения данных в core data
         let mockData: [TaskModel] = [.mock]
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -45,7 +48,7 @@ final class TaskListTest {
         // Проверка обработки ошибки при загрузки данных с json
         
         let error = NSError(domain: "", code: 0, userInfo: nil)
-        let client = TaskClient()
+        var client = TaskClientMock()
         client.testProxy?.loadTasksUrl = { throw error }
         
         let store = TestStore(
@@ -110,10 +113,13 @@ final class TaskListTest {
         // Проверка загрузки данных с Core Data
         let mockData: [TaskModel] = [.mock]
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -166,10 +172,13 @@ final class TaskListTest {
         // Проверка загрузки данных с Core Data
         let mockData: [TaskModel] = [.mock]
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -227,7 +236,7 @@ final class TaskListTest {
         let mockData: [TaskModel] = [.mock]
         let error = NSError(domain: "", code: 0, userInfo: nil)
         
-        var client = TaskClient()
+        var client = TaskClientMock()
         client.testProxy?.searchTask = { _, _, _, _ in throw error }
         
         let store = TestStore(
@@ -265,10 +274,13 @@ final class TaskListTest {
         let mockData: [TaskModel] = [.mock]
         let mock: TaskModel = .mock
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -297,10 +309,13 @@ final class TaskListTest {
         let mockData: [TaskModel] = [.mock]
         let mock: TaskModel = .mock
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -328,10 +343,13 @@ final class TaskListTest {
         // Проверка открытия детальной информации о задачи
         let mockData: [TaskModel] = [.mock]
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
@@ -360,10 +378,13 @@ final class TaskListTest {
         // Проверка нажатия на кнопку поделиться
         let mockData: [TaskModel] = [.mock]
         
+        let client = TaskClientMock()
         let store = TestStore(
             initialState: TasksListFeature.State()
         ) {
             TasksListFeature()
+        } withDependencies: {
+            $0.taskClient = client
         }
         
         store.exhaustivity = .off
