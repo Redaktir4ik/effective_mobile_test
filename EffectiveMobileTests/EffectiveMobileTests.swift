@@ -196,13 +196,8 @@ final class TaskListTest {
         
         await store.send(.binding(.set(\.filterTask.text, "")))
         
-        await store.receive(\.data.searchTask.start)
-        await store.receive(\.data.searchTask.complete) {
-            $0.tasks = mockData
-        }
-        
         await store.send(.ui(.filtersTapped)) {
-            $0.openFilters.toggle()
+            $0.openFilters = true
         }
         
         await store.send(.ui(.filterTaskTypeSelect(.uncompleted))) {
@@ -215,11 +210,6 @@ final class TaskListTest {
         }
         
         await store.send(.binding(.set(\.filterTask.date, Date.now)))
-        
-        await store.receive(\.data.searchTask.start)
-        await store.receive(\.data.searchTask.complete) {
-            $0.tasks = mockData
-        }
         
         await store.send(.ui(.userIsdSelected(mockData[0].userId))) {
             $0.filterTask.taskType = .uncompleted
@@ -261,10 +251,12 @@ final class TaskListTest {
             $0.tasks = mockData
         }
         
-        await store.send(.binding(.set(\.filterTask.text, "")))
+        await store.send(.ui(.filterTaskTypeSelect(.uncompleted))) {
+            $0.filterTask.taskType = .uncompleted
+        }
+        
         await store.receive(\.data.searchTask.start)
         await store.receive(\.data.searchTask.fail)
-        
         #expect(store.state.toast != nil)
     }
     
@@ -333,7 +325,7 @@ final class TaskListTest {
         }
         
         await store.send(.ui(.editTask(mock))) {
-            $0.destination = .details(
+            $0.destination = .edit(
                 TaskDetailsFeature.State(id: mock.id, type: .edit)
             )
         }
@@ -367,7 +359,7 @@ final class TaskListTest {
         }
         
         await store.send(.ui(.createTask)) {
-            $0.destination = .details(
+            $0.destination = .edit(
                 TaskDetailsFeature.State(id: nil, type: .create)
             )
         }
@@ -393,10 +385,10 @@ final class TaskListTest {
         await store.send(.ui(.onAppear(false)))
         
         await store.receive(\.data.loadTasksCoreData.start) {
-            $0.isLoading = false
+            $0.isLoading = true
         }
         
-        await store.receive(\.data.loadTasksUrl.complete) {
+        await store.receive(\.data.loadTasksCoreData.complete) {
             $0.isLoading = false
             $0.tasks = mockData
         }

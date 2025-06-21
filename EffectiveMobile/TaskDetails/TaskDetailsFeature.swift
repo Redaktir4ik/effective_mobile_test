@@ -28,13 +28,15 @@ public struct TaskDetailsFeature: Sendable {
         var userIds: [Int] = []
         
         var isLoading: Bool = false
-        var date: Date = Date.now
+        var date: Date
         
         var toast: ToastState?
         
         init(id: Int? = nil, type: DetailsType) {
             self.id = id
             self.type = type
+            let calendar = Calendar.current
+            self.date = calendar.startOfDay(for: Date.now)
         }
     }
     
